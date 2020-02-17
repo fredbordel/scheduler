@@ -4,10 +4,12 @@ import "components/InterviewerListItem.scss";
 
 import classnames from "classnames/bind";
 
-export default function InterviewListItem(props) {
+
+
+export default function InterviewerListItem(props) {
 
   const interviewerClass = classnames("interviewers__item", {
-    "interviewer__item--selected": props.selected,
+    "interviewers__item--selected": props.selected
   })
 
 return (
