@@ -1,10 +1,5 @@
-import React from "react";
-
-import DayListItem from "components/DayListItem";
-
-export default function DayList(props) {
-
-  const dayListItems = props.days.map(day => {
+const dayListItems = function () {
+  props.days.map(day => {
     return <DayListItem
       name={day.name}
       spots={day.spots}
@@ -17,4 +12,3 @@ export default function DayList(props) {
     </ul>
   )
 };
-
