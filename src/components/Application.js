@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
@@ -26,17 +25,16 @@ export default function Application(props) {
   });
 
   useEffect(() => {
-    let firstRequest = "http://localhost:8001/api/days";
-    let secondRequest = "http://localhost:8001/api/appointments";
-    let thirdRequest = "http://localhost:8001/api/interviewers";
     Promise.all([
-      axios.get(firstRequest),
-      axios.get(secondRequest),
-      axios.get(thirdRequest)
+      axios.get("http://localhost:8001/api/days"),
+      axios.get("http://localhost:8001/api/appointments"),
+      axios.get("http://localhost:8001/api/interviewers")
     ]).then((all) => {
       setState({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
     });
   }, []);
+
+
 
 
   function bookInterview(id, interview) {
@@ -44,13 +42,21 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
-
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-
+    console.log(interview.student, interview.interviewer)
+    axios.put(`http://localhost:8001/api/appointments/${id}`, {
+      interview
+    })
+      .then(response => {
+        setState({ ...state, appointments: response.data })
+      }).catch(error => {
+        console.log("SOWYY SERVER ERROR")
+      })
   };
+  // BELOW WAS THERE INSTEAD OF AXIOS.PUT AND IT WAS WORKING
   // setState({ ...state, appointments })
 
   const interviewers = getInterviewersForDay(state, state.day);
