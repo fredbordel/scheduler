@@ -13,9 +13,15 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   const [state, setState] = useState({
-    day: "Monday",
+    day: "",
     days: [],
-    appointments: {},
+    appointments: {
+      "1": {
+        id: 1,
+        time: "12pm",
+        interview: null
+      }
+    },
     interviewers: {}
   });
 
@@ -24,13 +30,28 @@ export default function Application(props) {
     let secondRequest = "http://localhost:8001/api/appointments";
     let thirdRequest = "http://localhost:8001/api/interviewers";
     Promise.all([
-      Promise.resolve(axios.get(firstRequest)),
-      Promise.resolve(axios.get(secondRequest)),
-      Promise.resolve(axios.get(thirdRequest))
+      axios.get(firstRequest),
+      axios.get(secondRequest),
+      axios.get(thirdRequest)
     ]).then((all) => {
-      setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }));
+      setState({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
     });
-  });
+  }, []);
+
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+  };
+  // setState({ ...state, appointments })
 
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day);
@@ -45,6 +66,7 @@ export default function Application(props) {
           time={appointment.time}
           interview={interview}
           interviewers={interviewers}
+          bookInterview={bookInterview}
         />
         :
         < Appointment
@@ -80,6 +102,8 @@ export default function Application(props) {
           schedule
         }
       </section>
+
+
     </main >
   );
 }
