@@ -16,6 +16,7 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
+const DELETING = "DELETING";
 const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
@@ -40,18 +41,16 @@ export default function Appointment(props) {
         transition(SHOW)
       }).catch(() => {
         transition(ERROR_SAVE)
-        console.log("ERROR IN THE SAVE FUNCTION")
       });
   };
 
   function deleting(appointmentId) {
-    transition(SAVING)
+    transition(DELETING)
     props.deleteAppointment(appointmentId)
       .then(() => {
         transition(EMPTY)
       }).catch(err => {
         transition(ERROR_DELETE)
-        console.log("ERROR IN THE DELETING FUNCTION")
       })
   };
 
@@ -61,9 +60,10 @@ export default function Appointment(props) {
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CREATE && <Form interviewers={props.interviewers} onCancel={() => back(EMPTY)} onSave={save} />}
-      {mode === SAVING && <Status />}
-      {mode === ERROR_SAVE && <Error />}
-      {mode === ERROR_DELETE && <Error />}
+      {mode === SAVING && <Status message="SAVING" />}
+      {mode === DELETING && <Status message="DELETING" />}
+      {mode === ERROR_SAVE && <Error message="THERE WERE AN ERROR SAVING, SORRY.." onClose={() => back(CREATE)} />}
+      {mode === ERROR_DELETE && <Error message="THERE WERE AN ERROR DELETING, SORRY.." onClose={() => transition(SHOW)} />}
       {mode === CONFIRM && <Confirm message="Are you sure you want to delete this appointment?"
         onConfirm={() => deleting(props.id)} />}
       {mode === EDIT && <Form interviewers={props.interviewers}
