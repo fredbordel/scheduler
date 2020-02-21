@@ -21,7 +21,7 @@ export default function Application(props) {
         interview: null
       }
     },
-    interviewers: {}
+    interviewers: {},
   });
 
   useEffect(() => {
@@ -61,6 +61,20 @@ export default function Application(props) {
       })
   };
 
+  function deleteAppointment(id) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    }
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+      .then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log("SORRY ERRORRRRRR")
+      })
+  };
+
+
 
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day);
@@ -76,6 +90,7 @@ export default function Application(props) {
           interview={interview}
           interviewers={interviewers}
           bookInterview={bookInterview}
+          deleteAppointment={deleteAppointment}
         />
         :
         < Appointment
