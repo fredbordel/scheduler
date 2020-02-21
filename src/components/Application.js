@@ -68,7 +68,6 @@ export default function Application(props) {
     }
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
-        console.log(response)
       }).catch(error => {
         console.log("SORRY ERRORRRRRR")
       })
