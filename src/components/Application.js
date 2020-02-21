@@ -34,7 +34,12 @@ export default function Application(props) {
     });
   }, []);
 
-
+  //////////////////////////////////////////////////////////////////////
+  // DATABASE RESET FOR APPOINTMENTS
+  // axios.get("http://localhost:8001/api/debug/reset").then(res => {
+  //   return res;
+  // })
+  //////////////////////////////////////////////////////////////////////
 
 
   function bookInterview(id, interview) {
@@ -46,18 +51,16 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
-    console.log(interview.student, interview.interviewer)
-    axios.put(`http://localhost:8001/api/appointments/${id}`, {
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, {
       interview
     })
       .then(response => {
-        setState({ ...state, appointments: response.data })
+        setState({ ...state, appointments })
       }).catch(error => {
-        console.log("SOWYY SERVER ERROR")
+        console.log("SOWYY SERVER ERROR", error)
       })
   };
-  // BELOW WAS THERE INSTEAD OF AXIOS.PUT AND IT WAS WORKING
-  // setState({ ...state, appointments })
+
 
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day);
@@ -108,8 +111,6 @@ export default function Application(props) {
           schedule
         }
       </section>
-
-
     </main >
   );
 }
