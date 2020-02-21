@@ -1,4 +1,5 @@
-import react, { useState, useEffect } from "react";
+import react, { useState, useEffect, useReducer } from "react";
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reducers/reducer"
 
 import axios from "axios";
 
@@ -10,40 +11,19 @@ import axios from "axios";
 
 export function useApplicationData() {
 
-  const SET_DAY = "SET_DAY";
-  const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
-  const SET_INTERVIEW = "SET_INTERVIEW";
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case SET_DAY:
-        return {
-          ...state,
-          day: ""
-        }
-      case SET_APPLICATION_DATA:
-        return {
-          ...state,
-          days: [],
-          appointments: {
-            "1": {
-              id: 1,
-              time: "12pm",
-              interview: null
-            }
-          }
-        }
-      case SET_INTERVIEW:
-        return {
-          ...state,
-          interviewers: {}
-        }
-      default:
-        throw new Error(
-          `Tried to reduce with unsupported action type: ${action.type}`
-        );
-    }
-  }
+  const { state, dispatch } = useReducer(reducer, {
+    day: "",
+    days: [],
+    appointments: {
+      "1": {
+        id: 1,
+        time: "12pm",
+        interview: null
+      }
+    },
+    interviewers: {},
+  });
 
   // const [state, setState] = useState({
   //   day: "",
@@ -60,9 +40,10 @@ export function useApplicationData() {
 
   /////////////////////////////
   //NEED TO USE DISPATCH BELOW
-  //dispatch({type: SET_DAY, day: day})
+  //dispatch({type: SET_DAY, day})
   /////////////////////////////
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => dispatch({ type: SET_DAY, day });
+  // setState({ ...state, day });
 
   useEffect(() => {
     Promise.all([
@@ -72,9 +53,9 @@ export function useApplicationData() {
     ]).then((all) => {
       /////////////////////////////
       //NEED TO USE DISPATCH BELOW
-      //dispatch({type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data})
+      dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data })
       /////////////////////////////
-      setState({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
+      // setState({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data });
     });
   }, []);
 
@@ -92,10 +73,11 @@ export function useApplicationData() {
     })
       /////////////////////////////
       //NEED TO USE DISPATCH BELOW
-      //dispatch({type: SET_INTERVIEW, appointments: })
+      //dispatch({type: SET_INTERVIEW, appointments })
       /////////////////////////////
       .then(response => {
-        setState({ ...state, appointments })
+        dispatch({ type: SET_INTERVIEW, appointments })
+        // setState({ ...state, appointments })
       })
   };
 
