@@ -57,7 +57,7 @@ export default function Application(props) {
       .then(response => {
         setState({ ...state, appointments })
       }).catch(error => {
-        console.log("SOWYY SERVER ERROR", error)
+        console.log("HERE IS A SERVER ERROR FOR PUT")
       })
   };
 
@@ -69,7 +69,8 @@ export default function Application(props) {
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => {
       }).catch(error => {
-        console.log("SORRY ERRORRRRRR")
+
+        console.log("HERE IS SERVER ERROR FOR DELETE")
       })
   };
 
