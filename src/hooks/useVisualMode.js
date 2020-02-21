@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+/////////////////////////////////////////////////////////
+//CUSTOM HOOKS THAT OWNS MODE AND HISTORY MANAGEMENT
+/////////////////////////////////////////////////////////
+
 export function useVisualMode(initial) {
 
   const [mode, setMode] = useState(initial);
