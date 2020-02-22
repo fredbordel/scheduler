@@ -40,7 +40,6 @@ export default function useApplicationData() {
 
   /////////////////////////////
   //NEED TO USE DISPATCH BELOW
-  //dispatch({type: SET_DAY, day})
   /////////////////////////////
   const setDay = day => dispatch({ type: SET_DAY, day });
   // setState({ ...state, day });
@@ -51,7 +50,6 @@ export default function useApplicationData() {
       axios.get("http://localhost:8001/api/appointments"),
       axios.get("http://localhost:8001/api/interviewers")
     ]).then((all) => {
-      console.log(all)
       /////////////////////////////
       //NEED TO USE DISPATCH BELOW
       dispatch({ type: SET_APPLICATION_DATA, days: all[0].data, appointments: all[1].data, interviewers: all[2].data })
@@ -74,7 +72,6 @@ export default function useApplicationData() {
     })
       /////////////////////////////
       //NEED TO USE DISPATCH BELOW
-      //dispatch({type: SET_INTERVIEW, appointments })
       /////////////////////////////
       .then(response => {
         dispatch({ type: SET_INTERVIEW, appointments })

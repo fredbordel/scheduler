@@ -12,18 +12,20 @@ export default function reducer(state, action) {
     case SET_DAY:
       return {
         ...state,
-        day: [...state.day, action.day]
+        // Used syntax below from Dom's example
+        day: action.day
       }
     case SET_APPLICATION_DATA:
       return {
         ...state,
-        days: [...state.days, action.days],
-        appointments: action.appointments
+        days: [...state.days, ...action.days],
+        appointments: action.appointments,
+        interviewers: action.interviewers
       }
     case SET_INTERVIEW:
       return {
         ...state,
-        appointments: [...state.appointments, action.appointments]
+        appointments: action.appointments
       }
     default:
       throw new Error(
