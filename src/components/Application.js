@@ -3,14 +3,16 @@ import axios from "axios";
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment/index";
-import { useApplicationData } from "../hooks/useApplicationData"
+import useApplicationData from "../hooks/useApplicationData"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 ///////////////////////////////////////////////////////
 //HERE IS THE HIGHER KINGDOM OF MY SCHEDULER.. WELCOME.
 ///////////////////////////////////////////////////////
 
-export default function Application(props) {
+export default function Application() {
+
+  console.log("HERE INSIDE APPLICATION")
 
   const {
     state,
@@ -38,7 +40,7 @@ export default function Application(props) {
         />
         :
         < Appointment
-          time={props.time} />
+          time={state.time} />
     );
   });
 

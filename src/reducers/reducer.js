@@ -4,24 +4,26 @@ export const SET_DAY = "SET_DAY";
 export const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 export const SET_INTERVIEW = "SET_INTERVIEW";
 
-const reducer = (state, action) => {
-  console.log("HELLO")
+export default function reducer(state, action) {
+
+  console.log("HERE INSIDE REDUCER FUNCTION")
+
   switch (action.type) {
     case SET_DAY:
       return {
         ...state,
-        day: action.day
+        day: [...state.day, action.day]
       }
     case SET_APPLICATION_DATA:
       return {
         ...state,
-        days: action.days,
+        days: [...state.days, action.days],
         appointments: action.appointments
       }
     case SET_INTERVIEW:
       return {
         ...state,
-        appointments: action.appointments
+        appointments: [...state.appointments, action.appointments]
       }
     default:
       throw new Error(
@@ -30,4 +32,4 @@ const reducer = (state, action) => {
   }
 };
 
-export default reducer;
+// export default reducer;
