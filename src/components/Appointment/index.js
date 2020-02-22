@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import "components/Appointment/styles.scss";
 import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
@@ -35,13 +34,17 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVING);
-    props.bookInterview(props.id, interview)
-      .then(() => {
-        transition(SHOW)
-      }).catch(() => {
-        transition(ERROR_SAVE)
-      });
+    if (name !== "" && interviewer !== null) {
+      transition(SAVING);
+      props.bookInterview(props.id, interview)
+        .then(() => {
+          transition(SHOW)
+        }).catch(() => {
+          transition(ERROR_SAVE)
+        });
+    } else {
+      transition(ERROR_SAVE)
+    }
   };
 
   function deleting(appointmentId) {

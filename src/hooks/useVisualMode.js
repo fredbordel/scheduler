@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import react, { useState } from "react";
 
 /////////////////////////////////////////////////////////
-//CUSTOM HOOKS THAT OWNS MODE AND HISTORY MANAGEMENT
+//CUSTOM HOOK THAT OWNS MODE AND HISTORY MANAGEMENT
 /////////////////////////////////////////////////////////
 
 export function useVisualMode(initial) {

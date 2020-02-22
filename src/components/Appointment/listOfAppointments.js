@@ -1,4 +1,8 @@
-const dayListItems = function () {
+import React from "react";
+import DayListItem from "components/DayListItem";
+
+const dayListItems = function (props) {
+
   props.days.map(day => {
     return <DayListItem
       name={day.name}
@@ -12,3 +16,5 @@ const dayListItems = function () {
     </ul>
   )
 };
+
+

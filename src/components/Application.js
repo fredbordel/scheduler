@@ -12,7 +12,7 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "help
 
 export default function Application() {
 
-  console.log("HERE INSIDE APPLICATION")
+
 
   const {
     state,
@@ -21,7 +21,7 @@ export default function Application() {
     deleteAppointment
   } = useApplicationData();
 
-  console.log("STATE: ", state)
+
 
 
   const interviewers = getInterviewersForDay(state, state.day);

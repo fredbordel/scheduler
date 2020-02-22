@@ -1,17 +1,16 @@
 import react, { useState, useEffect, useReducer } from "react";
-import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW } from "../reducers/reducer"
-
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, SET_SPOTS } from "../reducers/reducer"
 import axios from "axios";
 
-/////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
 //CUSTOM HOOKS THAT OWNS DATA MANAGEMENT.
 //RESPONSIBLE FOR PASSING DATA TO OTHER COMPONENTS.
-//Not soooo reusable because does really specific things.
-/////////////////////////////////////////////////////////
+//Not really reusable because does really specific things.
+//////////////////////////////////////////////////////////
 
 export default function useApplicationData() {
 
-  console.log("HERE INSIDE USEAPPLICATIONDATA")
+
   const [state, dispatch] = useReducer(reducer, {
     day: "",
     days: [],
@@ -23,26 +22,9 @@ export default function useApplicationData() {
       }
     },
     interviewers: {},
+    spots: 0
   });
 
-  // const [state, setState] = useState({
-  //   day: "",
-  //   days: [],
-  //   appointments: {
-  //     "1": {
-  //       id: 1,
-  //       time: "12pm",
-  //       interview: null
-  //     }
-  //   },
-  //   interviewers: {},
-  // });
-
-  /////////////////////////////
-  //NEED TO USE DISPATCH BELOW
-  /////////////////////////////
-  const setDay = day => dispatch({ type: SET_DAY, day });
-  // setState({ ...state, day });
 
   useEffect(() => {
     Promise.all([
@@ -58,6 +40,10 @@ export default function useApplicationData() {
     });
   }, []);
 
+
+
+  const setDay = day => dispatch({ type: SET_DAY, day });
+
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -67,15 +53,15 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
+    // const spots = {
+    //   ...state.spots,
+    // }
     return axios.put(`http://localhost:8001/api/appointments/${id}`, {
       interview
     })
-      /////////////////////////////
-      //NEED TO USE DISPATCH BELOW
-      /////////////////////////////
       .then(response => {
         dispatch({ type: SET_INTERVIEW, appointments })
-        // setState({ ...state, appointments })
+        // dispatch({ type: SET_SPOTS, spots })
       })
   };
 
@@ -84,6 +70,9 @@ export default function useApplicationData() {
       ...state.appointments[id],
       interview: null
     }
+    // const spots = {
+    //   ...state.spots,
+    // }
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
       .then(response => { })
   };
@@ -94,9 +83,9 @@ export default function useApplicationData() {
 
 
 
- //////////////////////////////////////////////////////////////////////
-  // DATABASE RESET FOR APPOINTMENTS - Un-comment only when needed.
-  // axios.get("http://localhost:8001/api/debug/reset").then(res => {
-  //   return res;
-  // })
+//////////////////////////////////////////////////////////////////////
+// DATABASE RESET FOR APPOINTMENTS - Un - comment only when needed.
+// axios.get("http://localhost:8001/api/debug/reset").then(res => {
+//   return res;
+// })
   //////////////////////////////////////////////////////////////////////
