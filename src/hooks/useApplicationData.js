@@ -1,5 +1,5 @@
 import react, { useState, useEffect, useReducer } from "react";
-import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, SET_SPOTS } from "../reducers/reducer"
+import reducer, { SET_DAY, SET_APPLICATION_DATA, SET_INTERVIEW, SET_DAYS } from "../reducers/reducer"
 import axios from "axios";
 
 //////////////////////////////////////////////////////////
@@ -53,15 +53,15 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    // const spots = {
-    //   ...state.spots,
-    // }
     return axios.put(`http://localhost:8001/api/appointments/${id}`, {
       interview
     })
       .then(response => {
         dispatch({ type: SET_INTERVIEW, appointments })
-        // dispatch({ type: SET_SPOTS, spots })
+        axios.get("http://localhost:8001/api/days")
+          .then(res => {
+            dispatch({ type: SET_DAYS, days: res.data })
+          })
       })
   };
 
@@ -74,7 +74,12 @@ export default function useApplicationData() {
     //   ...state.spots,
     // }
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-      .then(response => { })
+      .then(response => {
+        axios.get("http://localhost:8001/api/days")
+          .then(res => {
+            dispatch({ type: SET_DAYS, days: res.data })
+          })
+      })
   };
   return { state, setDay, bookInterview, deleteAppointment }
 };
