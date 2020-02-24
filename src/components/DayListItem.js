@@ -6,10 +6,6 @@ import classnames from "classnames/bind";
 
 export default function DayListItem(props) {
 
-  useEffect(() => {
-    console.log(props)
-  });
-
   const formatSpots = (spots) => {
     if (spots === 0) {
       return "no spots remaining";
