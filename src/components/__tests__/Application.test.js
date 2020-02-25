@@ -2,6 +2,7 @@ import React from "react";
 import { render, cleanup, waitForElement, fireEvent } from "@testing-library/react";
 import Application from "components/Application";
 import { getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByText } from "@testing-library/react";
+import { debug } from "util";
 
 afterEach(cleanup);
 
@@ -29,7 +30,15 @@ describe("Application", () => {
 
     fireEvent.click(getByText(appointment, "Save"));
 
-    console.log(prettyDOM(appointment));
+    expect(getByText(appointment, "SAVING")).toBeInTheDocument();
+
+    await waitForElement(() => queryByText(appointment, "Lydia Miller-Jones"));
+
+    const day = getAllByTestId(container, "day").find(day =>
+      queryByText(day, "Monday")
+    );
+
+    expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
 });
 

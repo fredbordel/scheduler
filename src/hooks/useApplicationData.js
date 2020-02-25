@@ -12,7 +12,7 @@ export default function useApplicationData() {
 
 
   const [state, dispatch] = useReducer(reducer, {
-    day: "",
+    day: "Monday",
     days: [],
     appointments: {
       "1": {
