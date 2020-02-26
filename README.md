@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+Scheduler is an App that allow users to book, edit or delete appointments from their agenda.
+
 ## Setup
 
 Install dependencies with `npm install`.
