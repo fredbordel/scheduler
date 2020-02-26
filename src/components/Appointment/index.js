@@ -21,8 +21,8 @@ const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE"
 
-export default function Appointment(props) {
 
+export default function Appointment(props) {
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -68,7 +68,7 @@ export default function Appointment(props) {
       {mode === ERROR_SAVE && <Error message="THERE WERE AN ERROR SAVING, SORRY.." onClose={() => back(CREATE)} />}
       {mode === ERROR_DELETE && <Error message="THERE WERE AN ERROR DELETING, SORRY.." onClose={() => transition(SHOW)} />}
       {mode === CONFIRM && <Confirm message="Are you sure you want to delete this appointment?"
-        onConfirm={() => deleting(props.id)} />}
+        onConfirm={() => deleting(props.id)} onCancel={() => back(EMPTY)} />}
       {mode === EDIT && <Form interviewers={props.interviewers}
         interviewer={props.interview.interviewer.id} name={props.interview.student} onCancel={() => back(EMPTY)} onSave={save} />}
       {mode === SHOW && (

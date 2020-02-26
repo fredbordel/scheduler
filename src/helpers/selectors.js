@@ -1,5 +1,6 @@
-//import { objectTypeAnnotation } from "@babel/types";
-
+/////////////////////////////
+// HELPER FUNCTIONS
+////////////////////////////
 
 export function getAppointmentsForDay(state, singleDay) {
   let result = [];

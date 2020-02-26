@@ -1,9 +1,5 @@
 import React from "react";
-
 import "components/Appointment/index";
-
-
-
 
 export default function Empty(props) {
   return (

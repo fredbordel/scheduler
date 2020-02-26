@@ -1,5 +1,4 @@
 import React from "react";
-
 import "components/Appointment/index";
 
 export default function Error(props) {

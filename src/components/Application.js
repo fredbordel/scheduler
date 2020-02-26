@@ -7,12 +7,10 @@ import useApplicationData from "../hooks/useApplicationData"
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 
 ///////////////////////////////////////////////////////
-//HERE IS THE HIGHER KINGDOM OF MY SCHEDULER.. WELCOME.
+//HERE IS THE HIGHER KINGDOM OF MY SCHEDULER... WELCOME.
 ///////////////////////////////////////////////////////
 
 export default function Application() {
-
-
 
   const {
     state,
@@ -21,11 +19,10 @@ export default function Application() {
     deleteAppointment
   } = useApplicationData();
 
-
-
-
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day);
+  // Create schedule variable that will hold appointement list and that will
+  // be references further down.
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
 
@@ -45,7 +42,6 @@ export default function Application() {
           time={state.time} />
     );
   });
-
 
   return (
     <main className="layout">
@@ -73,6 +69,7 @@ export default function Application() {
         {
           schedule
         }
+        <Appointment key="last" time="5pm" />
       </section>
     </main >
   );

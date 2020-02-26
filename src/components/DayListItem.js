@@ -3,7 +3,6 @@ import "components/DayListItem.scss";
 import classnames from "classnames/bind";
 
 
-
 export default function DayListItem(props) {
 
   const formatSpots = (spots) => {

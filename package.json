@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "classnames": "^2.2.6",
+    "fsevents": "^1.2.11",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -14,8 +15,8 @@
     "cypress": "cypress open -P .",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "test": "react-scripts test",
     "storybook": "start-storybook -p 9009 -s public --ci",
     "build-storybook": "build-storybook -s public",
     "proxy": "http://localhost:8001"
