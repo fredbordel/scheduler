@@ -1,5 +1,13 @@
 # Interview Scheduler
 
+Scheduler is an App that allow users to book, edit or delete appointments from their agenda.
+
+## Dependencies
+
+axios<br/>
+@testing-library/react-hooks<br/>
+react-test-renderer
+
 ## Setup
 
 Install dependencies with `npm install`.
