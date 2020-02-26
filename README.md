@@ -2,6 +2,12 @@
 
 Scheduler is an App that allow users to book, edit or delete appointments from their agenda.
 
+## Dependencies
+
+axios
+@testing-library/react-hooks
+react-test-renderer
+
 ## Setup
 
 Install dependencies with `npm install`.
