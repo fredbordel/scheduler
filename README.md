@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+!["Scheduler"](https://github.com/fredbordel/scheduler/blob/master/docs/scheduler_shot.png?raw=true)
+
 Scheduler is an App that allow users to book, edit or delete appointments from their agenda.
 
 ## Dependencies
