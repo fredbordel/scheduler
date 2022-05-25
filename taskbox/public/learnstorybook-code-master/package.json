@@ -19,7 +19,7 @@
     "@storybook/addons": "^5.2.1",
     "@storybook/react": "^5.2.1",
     "babel-loader": "^8.0.5",
-    "grunt": "^1.0.1",
+    "grunt": "^1.5.3",
     "grunt-contrib-less": "^2.0.0",
     "grunt-contrib-watch": "^1.0.0",
     "less": "^3.10.3",
